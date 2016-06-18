@@ -8,6 +8,7 @@ class RoomsController < ApplicationController
   end
 
   def show
+    @photos = @room.photos
   end
 
   def new
@@ -18,6 +19,13 @@ class RoomsController < ApplicationController
     @room = current_user.rooms.build(room_params)
 
     if @room.save
+      if params[:images]
+        params[:images].each do |image|
+          @room.photos.create(image: image)
+        end
+      end
+
+      @photos = @room.photos
       redirect_to @room, notice: "Saved"
     else
       render :new
@@ -25,10 +33,17 @@ class RoomsController < ApplicationController
   end
 
   def edit
+    @photos = @room.photos
   end
 
   def update
     if @room.update(room_params)
+      if params[:images]
+        params[:images].each do |image|
+          @room.photos.create(image: image)
+        end
+      end
+
       redirect_to @room, notice: "Updated"
     else
       render :edit
@@ -43,7 +58,7 @@ class RoomsController < ApplicationController
   private
 
     def set_room
-      @room = Room.find(param[:id])
+      @room = Room.find(params[:id])
     end
 
     def room_params
