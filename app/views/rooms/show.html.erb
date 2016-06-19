@@ -118,5 +118,46 @@
       </div>
       </div>
     </div>
+
+    <br>
+    <hr>
+
+    <!-- Google Map -->
+    <div class="row">
+      <div class="col-md-12">
+
+        <div id="map"></div>
+
+        <style>
+          #map {
+            width: 100%;
+            height: 400px;
+          }
+        </style>
+
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7n9YOZ_lquLmcToJz3Qw0tQ5EZ1_wZKY&callback=initMap" async defer></script>
+        <script>
+          var map;
+          function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+              center: {lat: <%= @room.latitude %>, lng: <%= @room.longitude %>},
+              zoom: 15
+            });
+
+            var cityCircle = new google.maps.Circle({
+              strokeColor: '#FF0000',
+              strokeOpacity: 0.8,
+              strokeWeight: 2,
+              fillColor: '#FF0000',
+              fillOpacity: 0.35,
+              map: map,
+              center: {lat: <%= @room.latitude %>, lng: <%= @room.longitude %>},
+              radius: Math.sqrt(20) * 100
+            });
+          }
+        </script>
+
+      </div>
+    </div>
   </div>
 </div>
