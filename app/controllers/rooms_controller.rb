@@ -28,6 +28,7 @@ class RoomsController < ApplicationController
       @photos = @room.photos
       redirect_to @room, notice: "Saved"
     else
+      flash[:alert] = "Please provide all information for this room."
       render :new
     end
   end
@@ -46,6 +47,7 @@ class RoomsController < ApplicationController
 
       redirect_to @room, notice: "Updated"
     else
+      flash[:alert] = "Please provide all information for this room."
       render :edit
     end
   end
@@ -65,7 +67,7 @@ class RoomsController < ApplicationController
       params.require(:room).permit( :home_type, :room_type, :accommodate,
                                     :bed_room, :bath_room, :listing_name, :summary, :address,
                                     :is_tv, :is_kitchen, :is_air, :is_heating, :is_internet,
-                                    :price, :active )
+                                    :price, :active, :photos )
     end
 
 end

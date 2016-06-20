@@ -141,7 +141,8 @@
           function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
               center: {lat: <%= @room.latitude %>, lng: <%= @room.longitude %>},
-              zoom: 15
+              zoom: 14,
+              scrollwheel: false,
             });
 
             var cityCircle = new google.maps.Circle({

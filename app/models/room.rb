@@ -1,7 +1,7 @@
 class Room < ActiveRecord::Base
   belongs_to :user
 
-  has_many :photos
+  has_many :photos, :dependent => :destroy
 
   geocoded_by :address
   after_validation :geocode, if: :address_changed?
@@ -15,4 +15,6 @@ class Room < ActiveRecord::Base
   validates :listing_name, presence: true, length: { maximum: 50 }
   validates :summary, presence: true, length: { maximum: 500 }
   validates :address, presence: true
+
+  validates_associated :photos, presence: true
 end
